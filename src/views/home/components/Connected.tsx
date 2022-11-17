@@ -14,13 +14,14 @@ import { CandyMachineV2, PublicKey } from "@metaplex-foundation/js"
 import { useConnection, useWallet } from "@solana/wallet-adapter-react"
 import { useRouter } from "next/router"
 import { LinkIcon } from "@chakra-ui/icons"
+import MintModal from "./MintModal"
+import { notify } from "../../../utils/notifications"
+import { CustomImageFrame } from "./CustomImageFrame"
 
 const Connected: FC = () => {
-    const { connection } = useConnection()
-    const { publicKey, connected } = useWallet()
     const [candyMachine, setCandyMachine] = useState<CandyMachineV2>()
-    const [isMinting, setIsMinting] = useState(false)
     const { metaplex } = useMetaplex()
+
 
     useEffect(() => {
         if (!metaplex) return
@@ -35,39 +36,16 @@ const Connected: FC = () => {
                 setCandyMachine(candyMachine)
             })
             .catch((error: any) => {
-                alert(error)
-
+                notify({ type: 'error', message: 'Error', description: 'Error finding Candy Machine!' });
+                console.log(error)
             })
 
         console.log(candyMachine)
 
     }, [metaplex])
 
-    const router = useRouter()
-
-    const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback(
-        async (event) => {
-            event.preventDefault();
-            if (!connected || !candyMachine) {
-                return;
-            }
-            try {
-                setIsMinting(true)
-                const nft = await metaplex?.candyMachinesV2().mint({ candyMachine })
-                console.log(nft)
-                router.push(`/newMint?mint=${nft!.nft.address.toBase58()}`)
-            } catch (error) {
-
-                alert(error)
-            } finally {
-                setIsMinting(false)
-            }
-        },
-        [metaplex, publicKey, candyMachine]
-    )
-
     return (
-        <VStack spacing={20}>
+        <VStack spacing={10}>
             <VStack spacing={0}>
                 <Heading
                     color="bodyText"
@@ -82,38 +60,44 @@ const Connected: FC = () => {
                 <Text color="bodyText" fontSize="l" maxW={1000} p={'10px'} textAlign="center">
                     Genesis Generation of the Ailiens Collection.
                 </Text>
-                <Text color="bodyText" fontSize="l" maxW={800} p={'20px 50px'} textAlign="justify">
-                    333 fully AI generated druid aliens that belong to the Solana most valuable Community
-                    members, the developers. Stake them to receive the <Text as="b">Parallax </Text>
-                    token. $PAX is the governance token for the AiliensDAO, where you will become
-                    a partner of the project that will help and contribute in the development of the final
-                    <Text as="b"> Ad Astra Generation</Text> of the Ailiens Collection.
+                <Text color="bodyText" fontSize="l" maxW={800} p={'10px 0px'} textAlign="center">
+                    333 fully AI generated aliens that belong to the Solana most valuable Community
+                    members, the developers. Stake them to receive <Text as="b">Parallax</Text>,
+                    the governance token for the AiliensDAO. {/* Use it to participate in the
+                    creation of the<Text as="b"> Ad Astra Generation</Text> Ailiens: the final version
+                    of the Ailiens Collection. */}
                 </Text>
             </VStack>
 
-            <SimpleGrid columns={3} spacing='33px' maxW={700} w={{ sm: "calc(80vw)", lg: "calc(50vw)" }}>
-                <Image src="assets/ailiens/4.png" pointerEvents={'none'} className={styles.nftCard} alt="" />
-                <Image src="assets/ailiens/7.png" pointerEvents={'none'} className={styles.nftCard} alt="" />
-                <Image src="assets/ailiens/93.png" pointerEvents={'none'} className={styles.nftCard} alt="" />
-                <Image src="assets/ailiens/142.png" pointerEvents={'none'} className={styles.nftCard} alt="" />
-                <Image src="assets/ailiens/23.png" pointerEvents={'none'} className={styles.nftCard} alt="" />
-                <Image src="assets/ailiens/170.png" pointerEvents={'none'} className={styles.nftCard} alt="" />
+            <SimpleGrid columns={3} spacing='20px' maxW={700} w={{ sm: "calc(85vw)", lg: "calc(60vw)" }}>
+                <CustomImageFrame>
+                    <Image src="assets/ailiens/4.png" pointerEvents={'none'} className={styles.nftImage} alt="" />
+                </CustomImageFrame>
+                <CustomImageFrame>
+                    <Image src="assets/ailiens/7.png" pointerEvents={'none'} className={styles.nftImage} alt="" />
+                </CustomImageFrame>
+                <CustomImageFrame>
+                    <Image src="assets/ailiens/93.png" pointerEvents={'none'} className={styles.nftImage} alt="" />
+                </CustomImageFrame>
+                <CustomImageFrame>
+                    <Image src="assets/ailiens/142.png" pointerEvents={'none'} className={styles.nftImage} alt="" />
+                </CustomImageFrame>
+                <CustomImageFrame>
+                    <Image src="assets/ailiens/23.png" pointerEvents={'none'} className={styles.nftImage} alt="" />
+                </CustomImageFrame>
+                <CustomImageFrame>
+                    <Image src="assets/ailiens/170.png" pointerEvents={'none'} className={styles.nftImage} alt="" />
+                </CustomImageFrame>
             </SimpleGrid>
 
-            <Button
-                bgColor="accent"
-                colorScheme='black'
-                size='lg'
-                color="bodyText"
-                maxW="380px"
-                onClick={handleClick}
-                isLoading={isMinting}
-            >
-                <HStack>
-                    <Text>MINT AILIEN</Text>
-                    <LinkIcon />
-                </HStack>
-            </Button>
+            <MintModal candyMachine={candyMachine} />
+
+            {/* <Button
+                onClick={() => {
+                    notify({ type: 'info', message: 'Notification Message', description: 'This is a more detailed description' })
+                }}
+            >Notify</Button> */}
+
 
         </VStack>
 

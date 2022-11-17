@@ -1,0 +1,53 @@
+* {
+  cursor: cell !important;
+}
+
+.wallet-adapter-button {
+  background: transparent;
+  border: 2px solid #222;
+  font-family: 'Exo 2', 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 0 24px;
+}
+
+.wallet-adapter-button-trigger {
+  background-color: #111;
+}
+
+.wallet-adapter-button:not([disabled]):focus-visible {
+  outline-color: transparent;
+}
+
+.wallet-adapter-button:not([disabled]):hover {
+  background-color: #111;
+}
+
+.wallet-adapter-button[disabled] {
+  background: transparent;
+  color: #555;
+  cursor: not-allowed;
+}
+
+.wallet-adapter-dropdown-list {
+  background: #050505;
+  box-shadow: none;
+  border: 2px solid #222;
+  font-family: 'Exo 2', 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.wallet-adapter-dropdown-list-item:not([disabled]):hover {
+  background-color: #111;
+}
+
+.wallet-adapter-modal-wrapper {
+  background: #010101;
+  border: 2px solid #222;
+  font-family: 'Exo 2', 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.wallet-adapter-modal-middle-button {
+  background-color: #111;
+}
+
+.wallet-adapter-modal-button-close {
+  background-color: transparent;
+}

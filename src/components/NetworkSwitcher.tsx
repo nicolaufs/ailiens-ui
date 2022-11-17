@@ -12,8 +12,8 @@ const NetworkSwitcher: FC = () => {
       bg='black'
       borderColor='black'
       color='white'
-      fontSize={12}
-      fontWeight={500}
+      fontSize={14}
+      fontWeight={700}
       borderRadius={8}
       cursor='pointer'
       background='transparent'

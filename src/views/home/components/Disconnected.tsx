@@ -4,12 +4,13 @@ import {
   Container,
   Heading,
   HStack,
+  Image,
   Text,
   VStack,
 } from '@chakra-ui/react'
+import styles from "../../../styles/Home.module.css"
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { useWallet } from '@solana/wallet-adapter-react'
-import { findMetadataPda, PublicKey } from '@metaplex-foundation/js'
 
 const Disconnected: FC = () => {
   const modalState = useWalletModal()
@@ -30,38 +31,29 @@ const Disconnected: FC = () => {
     [wallet, connect, modalState],
   )
 
-  async function getPDA() {
-    const a = await findMetadataPda(new PublicKey('6RJ6BkAWkDPy7sN1nfcq3YEULFihL8QSRRKCZLfsLcbA'))
-    console.log(a.toBase58())
-
-  }
-
   return (
-    <Container>
-      <VStack spacing={20}>
-        <Heading
-          color="white"
-          as="h1"
-          size="3xl"
-          noOfLines={2}
-          textAlign="center"
-        >
-          Mint your Ailien. Earn $PAX. Level up.
-        </Heading>
-        <Button
-          bgColor="accent"
-          colorScheme='black'
-          size='lg'
-          color="bodyText"
-          maxW="380px"
-          onClick={handleClick}
-        >
-          <HStack>
-            <Text>Join the Ailien World</Text>
-          </HStack>
-        </Button>
-      </VStack>
-    </Container>
+    <VStack spacing={20}>
+      <Image src="assets/ailiensround-md.png" maxW={140} pointerEvents={'none'} alt="" />
+      <Heading
+        color="white"
+        as="h1"
+        size="3xl"
+        noOfLines={2}
+        textAlign="center"
+      >
+        Mint your Ailien. Earn $PAX.<br />Join the AiliensDAO.
+      </Heading>
+      <Button
+        variant={'outline'}
+        size='lg'
+        maxW="380px"
+        onClick={handleClick}
+        rightIcon={<Text fontSize={'3xl'}>&#128760;</Text>}
+      >
+        <Text >Come Onboard </Text>
+
+      </Button>
+    </VStack>
   )
 }
 
