@@ -1,8 +1,9 @@
 import { FC, ReactNode } from "react"
 import styles from "../styles/Home.module.css"
-import { Box, Center, Spacer, Stack } from "@chakra-ui/react"
+import { Box, Center, Link, Spacer, Stack } from "@chakra-ui/react"
 import NavBar from "../components/NavBar"
 import { useWallet } from "@solana/wallet-adapter-react"
+import Footer from "../components/Footer"
 
 const MainLayout: FC<{ children: ReactNode }> = ({ children }) => {
 
@@ -25,18 +26,7 @@ const MainLayout: FC<{ children: ReactNode }> = ({ children }) => {
 
                 <Spacer />
 
-                <Center>
-                    <Box marginBottom={4} color="white" >
-                        <a
-                            href="https://twitter.com/_buildspace"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{ fontSize: 10 }}
-                        >
-                            built with @_buildspace
-                        </a>
-                    </Box>
-                </Center>
+                <Footer />
             </Stack>
         </Box>
     )

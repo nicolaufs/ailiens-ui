@@ -7,7 +7,7 @@ import NetworkSwitcher from "./NetworkSwitcher"
 const NavBar: FC = () => {
     /* const { colorMode, toggleColorMode } = useColorMode() */
     return (
-        <HStack width="full" padding={4}>
+        <HStack width="full" p={4}>
             <Spacer />
             <WalletMultiButton className={styles["wallet-adapter-button-trigger"]} />
             <NetworkSwitcher />

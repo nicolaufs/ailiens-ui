@@ -8,6 +8,7 @@ import {
     Image,
     SimpleGrid,
     Spacer,
+    Divider,
 } from "@chakra-ui/react"
 import styles from "../../../styles/Home.module.css"
 import { useMetaplex } from "../../../hooks/useMetaplex"
@@ -49,7 +50,7 @@ const Connected: FC = () => {
     }, [metaplex])
 
     return (
-        <VStack spacing={10}>
+        <VStack spacing={12}>
             <VStack spacing={0}>
                 <Heading
                     color="bodyText"
@@ -61,11 +62,8 @@ const Connected: FC = () => {
                 >
                     AILIENS
                 </Heading>
-                <Text color="bodyText" fontSize="l" maxW={1000} p={'10px'} textAlign="center">
-                    Genesis Generation of the Ailiens Collection.
-                </Text>
-                <Text color="bodyText" fontSize="l" maxW={800} p={'10px 0px'} textAlign="center">
-                    333 fully AI generated aliens that belong to the Solana most valuable Community
+                <Text color="bodyText" fontSize={'md'} maxW={700} p={'10px'} textAlign="center">
+                    Genesis Generation of the Ailiens Collection. 333 fully AI generated aliens that belong to the Solana most valuable Community
                     members, the developers. Stake them to receive <Text as="b">Parallax</Text>,
                     the governance token for the AiliensDAO. {/* Use it to participate in the
                     creation of the<Text as="b"> Ad Astra Generation</Text> Ailiens: the final version
@@ -93,11 +91,10 @@ const Connected: FC = () => {
                     <Image src="assets/ailiens/170.png" pointerEvents={'none'} className={styles.nftImage} alt="" />
                 </CustomImageFrame>
             </SimpleGrid>
-            <SimpleGrid columns={{ sm: 1, md: 2 }} spacing='20px'>
+            <SimpleGrid columns={{ sm: 1, md: 2 }} spacing='20px' >
                 <MintModal candyMachine={candyMachine} />
                 <StakingModal />
             </SimpleGrid>
-
 
 
             {/* <Button
