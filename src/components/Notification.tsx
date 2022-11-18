@@ -69,7 +69,7 @@ const Notification: FC<NewMintProps> = ({ type, message, description, txid, onHi
 
   return (
     <SlideFade in={isOpen} offsetY='20px'>
-      <Box border={'2px solid #222'} bg={'#101010'} color={'bodyText'} maxW={'xs'} minW={'2xs'} p={3} mx={1} mb={4} borderRadius={8} pointerEvents={'auto'} mt={1} overflow={'hidden'}  >
+      <Box border={'2px solid #222'} bg={'#101010'} color={'bodyText'} maxW={'sm'} minW={'xs'} p={3} mx={1} mb={4} borderRadius={8} pointerEvents={'auto'} mt={1} overflow={'hidden'}  >
         <Center>
           <HStack justify={'space-between'} w={'full'} >
             <Box >

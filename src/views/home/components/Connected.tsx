@@ -7,6 +7,7 @@ import {
     VStack,
     Image,
     SimpleGrid,
+    Spacer,
 } from "@chakra-ui/react"
 import styles from "../../../styles/Home.module.css"
 import { useMetaplex } from "../../../hooks/useMetaplex"
@@ -16,7 +17,8 @@ import { useRouter } from "next/router"
 import { LinkIcon } from "@chakra-ui/icons"
 import MintModal from "./MintModal"
 import { notify } from "../../../utils/notifications"
-import { CustomImageFrame } from "./CustomImageFrame"
+import { CustomImageFrame } from "../../../components/CustomImageFrame"
+import StakingModal from "./StakingModal"
 
 const Connected: FC = () => {
     const [candyMachine, setCandyMachine] = useState<CandyMachineV2>()
@@ -24,6 +26,8 @@ const Connected: FC = () => {
 
 
     useEffect(() => {
+        notify({ type: 'success', message: 'Wallet Connected' });
+
         if (!metaplex) return
 
         metaplex
@@ -89,8 +93,12 @@ const Connected: FC = () => {
                     <Image src="assets/ailiens/170.png" pointerEvents={'none'} className={styles.nftImage} alt="" />
                 </CustomImageFrame>
             </SimpleGrid>
+            <SimpleGrid columns={{ sm: 1, md: 2 }} spacing='20px'>
+                <MintModal candyMachine={candyMachine} />
+                <StakingModal />
+            </SimpleGrid>
 
-            <MintModal candyMachine={candyMachine} />
+
 
             {/* <Button
                 onClick={() => {

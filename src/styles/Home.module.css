@@ -32,7 +32,8 @@
   border-radius: 8px;
 }
 
-.mintModal {
+.mintModal,
+.stakingModal {
   background-image: repeating-conic-gradient(
     #0a0a0a 10%,
     #000 20%,
@@ -84,13 +85,75 @@
   }
 }
 
+.patternbg {
+  opacity: 0.8;
+  background-image: linear-gradient(
+      30deg,
+      #111111 12%,
+      transparent 12.5%,
+      transparent 87%,
+      #111111 87.5%,
+      #111111
+    ),
+    linear-gradient(
+      150deg,
+      #111111 12%,
+      transparent 12.5%,
+      transparent 87%,
+      #111111 87.5%,
+      #111111
+    ),
+    linear-gradient(
+      30deg,
+      #111111 12%,
+      transparent 12.5%,
+      transparent 87%,
+      #111111 87.5%,
+      #111111
+    ),
+    linear-gradient(
+      150deg,
+      #111111 12%,
+      transparent 12.5%,
+      transparent 87%,
+      #111111 87.5%,
+      #111111
+    ),
+    linear-gradient(
+      60deg,
+      #11111177 25%,
+      transparent 25.5%,
+      transparent 75%,
+      #11111177 75%,
+      #11111177
+    ),
+    linear-gradient(
+      60deg,
+      #11111177 25%,
+      transparent 25.5%,
+      transparent 75%,
+      #11111177 75%,
+      #11111177
+    ) !important;
+  background-size: 5px 5px !important;
+  background-position: 0 0, 0 0, 14px 25px, 14px 25px, 0 0, 14px 25px;
+}
+
+.stakingModalStaking {
+  /* Start the shake animation and make the animation last for 0.5 seconds */
+  animation: shake 0.5s;
+
+  /* When the animation is finished, start again */
+  animation-iteration-count: infinite;
+}
+
 .coolTitle {
   color: white;
   text-transform: uppercase;
 }
 
 .mintButton {
-  animation: pulseLight 2s infinite;
+  animation: bluePulseLight 2s infinite;
   border-radius: 50px !important;
   background-color: #050505;
 }
@@ -100,7 +163,13 @@
   box-shadow: 0 0 10px 2px #fff, 0 0 10px 5px #00f;
 }
 
-@keyframes pulseLight {
+.mintButtonPressed {
+  box-shadow: 0 0 10px 2px #fff, 0 0 10px 5px #f00;
+  border-radius: 50px !important;
+  background-color: #050505;
+}
+
+@keyframes bluePulseLight {
   0% {
     box-shadow: 0 0 10px 0px #fff, 0 0 10px 0px #00f;
   }
@@ -114,8 +183,33 @@
   }
 }
 
-.mintButtonPressed {
-  box-shadow: 0 0 10px 2px #fff, 0 0 10px 5px #f00;
+.stakingButton {
+  animation: redPulseLight 2s infinite;
   border-radius: 50px !important;
   background-color: #050505;
+}
+
+.stakingButton:hover {
+  animation: none;
+  box-shadow: 0 0 10px 2px #fff, 0 0 10px 5px #f00;
+}
+
+.stakingButtonPressed {
+  box-shadow: 0 0 10px 2px #fff, 0 0 10px 5px #f0f;
+  border-radius: 50px !important;
+  background-color: #050505;
+}
+
+@keyframes redPulseLight {
+  0% {
+    box-shadow: 0 0 10px 0px #fff, 0 0 10px 0px #f00;
+  }
+
+  50% {
+    box-shadow: 0 0 10px 2px #fff, 0 0 10px 3px #f00;
+  }
+
+  100% {
+    box-shadow: 0 0 10px 0px #fff, 0 0 10px 0px #f00;
+  }
 }
