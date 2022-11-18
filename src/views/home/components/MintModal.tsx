@@ -144,12 +144,10 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
                                         </Text>
                                     </VStack>
                                     <VStack>
-                                        <CustomImageFrame wrapperClassName={isMinting ? styles.mintModalMinting : ''}>
-                                            <Skeleton h='35vh' w='35vh' startColor='#222' endColor='#111' isLoaded={displayPic}>
-                                                <Image src={isMinting ? "assets/loadmint.gif" : "assets/ailiens/blendblur.png"}
-                                                    pointerEvents={'none'} className={styles.nftImage}
-                                                    onLoad={() => setDisplayPic(true)} maxH={'calc(35vh)'} alt="" />
-                                            </Skeleton>
+                                        <CustomImageFrame h='35vh' w='35vh' wrapperClassName={isMinting ? styles.mintModalMinting : ''}>
+                                            <Image src={isMinting ? "assets/loadmint.gif" : "assets/ailiens/blendblur.png"}
+                                                pointerEvents={'none'} className={styles.nftImage}
+                                                maxH={'calc(35vh)'} alt="" />
                                         </CustomImageFrame>
                                         <Box h='30px' minW={'150px'}>
                                         </Box>
@@ -180,16 +178,14 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
                                         </Text>
                                     </VStack>
                                     <VStack>
-                                        <CustomImageFrame wrapperClassName={isMinting ? styles.mintModalMinting : ''}>
-                                            <Skeleton h='35vh' w='35vh' startColor='#222' endColor='#111' isLoaded={displayNFT}>
-                                                <Image src={loadingMachine ? 'assets/ailiens/blendblur.png' : metadata?.image}
-                                                    onLoad={() => {
-                                                        setDisplayNFT(true)
-                                                    }}
-                                                    pointerEvents={'none'}
-                                                    className={styles.nftImage}
-                                                    maxH={'calc(35vh)'} alt="" />
-                                            </Skeleton>
+                                        <CustomImageFrame h='35vh' w='35vh' wrapperClassName={isMinting ? styles.mintModalMinting : ''} isLoaded={displayNFT}>
+                                            <Image src={loadingMachine ? 'assets/ailiens/blendblur.png' : metadata?.image}
+                                                onLoad={() => {
+                                                    setDisplayNFT(true)
+                                                }}
+                                                pointerEvents={'none'}
+                                                className={styles.nftImage}
+                                                maxH={'calc(35vh)'} alt="" />
                                         </CustomImageFrame>
                                         {!loadingMachine && (<>
                                             <Skeleton h='30px' minW={150} startColor='#222' endColor='#111' isLoaded={displayNFT}>
@@ -224,6 +220,7 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
 
                             setMetadata(undefined)
                             setDisplayNFT(false)
+                            setDisplayPic(false)
                         }
                         } />
                     </ModalBody>

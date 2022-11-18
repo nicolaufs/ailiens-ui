@@ -72,22 +72,22 @@ const Connected: FC = () => {
             </VStack>
 
             <SimpleGrid columns={3} spacing='20px' maxW={700} w={{ sm: "calc(85vw)", lg: "calc(60vw)" }}>
-                <CustomImageFrame>
+                <CustomImageFrame h='100%' w='100%' >
                     <Image src="assets/ailiens/4.png" pointerEvents={'none'} className={styles.nftImage} alt="" />
                 </CustomImageFrame>
-                <CustomImageFrame>
+                <CustomImageFrame h='100%' w='100%' >
                     <Image src="assets/ailiens/7.png" pointerEvents={'none'} className={styles.nftImage} alt="" />
                 </CustomImageFrame>
-                <CustomImageFrame>
+                <CustomImageFrame h='100%' w='100%' >
                     <Image src="assets/ailiens/93.png" pointerEvents={'none'} className={styles.nftImage} alt="" />
                 </CustomImageFrame>
-                <CustomImageFrame>
+                <CustomImageFrame h='100%' w='100%' >
                     <Image src="assets/ailiens/142.png" pointerEvents={'none'} className={styles.nftImage} alt="" />
                 </CustomImageFrame>
-                <CustomImageFrame>
+                <CustomImageFrame h='100%' w='100%' >
                     <Image src="assets/ailiens/23.png" pointerEvents={'none'} className={styles.nftImage} alt="" />
                 </CustomImageFrame>
-                <CustomImageFrame>
+                <CustomImageFrame h='100%' w='100%' >
                     <Image src="assets/ailiens/170.png" pointerEvents={'none'} className={styles.nftImage} alt="" />
                 </CustomImageFrame>
             </SimpleGrid>

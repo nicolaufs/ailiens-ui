@@ -1,10 +1,12 @@
-import { FC, MouseEventHandler, useCallback } from 'react'
+import { FC, MouseEventHandler, useCallback, useState } from 'react'
 import {
   Button,
   Container,
   Heading,
   HStack,
   Image,
+  Skeleton,
+  SkeletonCircle,
   Text,
   VStack,
 } from '@chakra-ui/react'
@@ -13,6 +15,7 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 const Disconnected: FC = () => {
+  const [displayLogo, setDisplayLogo] = useState(false)
   const modalState = useWalletModal()
   const { wallet, connect } = useWallet()
 
