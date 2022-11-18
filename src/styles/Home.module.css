@@ -28,6 +28,38 @@
   background: #102020;
 }
 
+.imageFrame {
+  border: 2px solid #222;
+  border-radius: 12px;
+  padding: 10px;
+  animation: liquidShadowWhite 2s linear infinite;
+}
+
+@keyframes liquidShadowWhite {
+  0% {
+    box-shadow: inset 0px 0px 10px 5px #ffffff30;
+  }
+
+  20% {
+    box-shadow: inset 2.5px 0px 10px 5px #ffffff30;
+  }
+
+  40% {
+    box-shadow: inset 5px 2.5px 10px 5px #ffffff30;
+  }
+
+  60% {
+    box-shadow: inset 2.5px 5px 10px 5px #ffffff30;
+  }
+
+  800% {
+    box-shadow: inset 0px 2.5px 10px 5px #ffffff30;
+  }
+  100% {
+    box-shadow: inset 0px 0px 10px 5px #ffffff30;
+  }
+}
+
 .nftImage {
   border-radius: 8px;
 }

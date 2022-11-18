@@ -40,6 +40,7 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
     const [isCompleted, setIsCompleted] = useState(false)
     const [isError, setIsError] = useState(false)
     const [error, setError] = useState()
+    const [displayPic, setDisplayPic] = useState(false)
     const [displayNFT, setDisplayNFT] = useState(false)
 
     const { metaplex } = useMetaplex()
@@ -125,7 +126,7 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
                 <Text>Launch Minting Machine</Text>
             </Button>
 
-            <Modal closeOnOverlayClick={false} isOpen={isOpen} colorScheme='blackAlpha' onClose={onClose} size={'xl'} isCentered>
+            <Modal closeOnOverlayClick={false} isOpen={isOpen} colorScheme='blackAlpha' onClose={onClose} size={'lg'} isCentered>
                 <ModalOverlay backdropFilter='blur(10px)' />
                 <ModalContent borderRadius={10} className={isMinting && !metadata?.image ? [styles.mintModalMinting, styles.mintModal].join(' ') : styles.mintModal} boxShadow='0 0 20px #000' border={'2px solid #222'}>
                     <ModalBody pb={20} pt={10}>
@@ -139,14 +140,16 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
                                         </Heading>
 
                                         <Text color={isError ? '#999' : isCompleted ? '#fff' : loadingMachine ? '#22f' : isMinting ? "#f22" : "#555"} fontWeight={700} fontSize="md" textAlign="center" >
-                                            {isError ? 'ERROR' : isCompleted ? 'COMPLETED' : loadingMachine ? 'ACTIVATING MACHINE' : isMinting ? 'MINTING IN PROCESS' : 'USE WITH CAUTION'}
+                                            {isError ? 'ERROR' : isCompleted ? 'COMPLETED' : loadingMachine ? 'ACTIVATING MACHINE' : isMinting ? 'WOOOAH! MINTOOOOR!' : 'USE WITH CAUTION'}
                                         </Text>
                                     </VStack>
                                     <VStack>
-                                        <CustomImageFrame>
-                                            <Image src={isMinting ? "assets/loadmint.gif" : "assets/ailiens/blendblur.png"}
-                                                pointerEvents={'none'} className={isMinting ? [styles.nftImage, styles.mintModalMinting].join(' ') : [styles.nftImage].join(' ')}
-                                                maxH={'calc(35vh)'} alt="" />
+                                        <CustomImageFrame wrapperClassName={isMinting ? styles.mintModalMinting : ''}>
+                                            <Skeleton h='35vh' w='35vh' startColor='#222' endColor='#111' isLoaded={displayPic}>
+                                                <Image src={isMinting ? "assets/loadmint.gif" : "assets/ailiens/blendblur.png"}
+                                                    pointerEvents={'none'} className={styles.nftImage}
+                                                    onLoad={() => setDisplayPic(true)} maxH={'calc(35vh)'} alt="" />
+                                            </Skeleton>
                                         </CustomImageFrame>
                                         <Box h='30px' minW={'150px'}>
                                         </Box>
@@ -173,11 +176,11 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
                                             Minting Machine
                                         </Heading>
                                         <Text color={isError ? '#999' : isCompleted ? '#fff' : loadingMachine ? '#22f' : isMinting ? "#ff2" : "#555"} fontWeight={700} fontSize="md" textAlign="center" >
-                                            {isError ? 'ERROR' : isCompleted ? 'COMPLETED' : loadingMachine ? 'ACTIVATING MACHINE' : isMinting ? 'MINTING IN PROCESS' : 'USE WITH CAUTION'}
+                                            {isError ? 'ERROR' : isCompleted ? 'COMPLETED' : loadingMachine ? 'ACTIVATING MACHINE' : isMinting ? 'WOOOAH! MINTOOOOR!' : 'USE WITH CAUTION'}
                                         </Text>
                                     </VStack>
                                     <VStack>
-                                        <CustomImageFrame>
+                                        <CustomImageFrame wrapperClassName={isMinting ? styles.mintModalMinting : ''}>
                                             <Skeleton h='35vh' w='35vh' startColor='#222' endColor='#111' isLoaded={displayNFT}>
                                                 <Image src={loadingMachine ? 'assets/ailiens/blendblur.png' : metadata?.image}
                                                     onLoad={() => {
