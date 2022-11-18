@@ -1,6 +1,5 @@
 import { useWallet } from "@solana/wallet-adapter-react"
 import {
-    Container,
     Heading,
     VStack,
     Text,
@@ -12,8 +11,8 @@ import {
     ModalContent,
     ModalBody,
     ModalCloseButton,
-    Box,
     Skeleton,
+    Spacer,
 } from "@chakra-ui/react"
 import {
     FC,
@@ -21,7 +20,6 @@ import {
     useCallback,
     useState,
 } from "react"
-import { PublicKey } from "@solana/web3.js"
 import { useMetaplex } from "../../../hooks/useMetaplex"
 import styles from "../../../styles/Home.module.css"
 import { CandyMachineV2, MintCandyMachineV2Output } from "@metaplex-foundation/js"
@@ -44,7 +42,7 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
     const [displayNFT, setDisplayNFT] = useState(false)
 
     const { metaplex } = useMetaplex()
-    const { publicKey, connected } = useWallet()
+    const { publicKey, connected, } = useWallet()
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -121,7 +119,7 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
                 variant={'outline'}
                 size='lg'
                 maxW="380px"
-                rightIcon={<Text fontSize={'2xl'}>&#128434;</Text>}
+                rightIcon={<Text fontSize={'2xl'}>&#128377;</Text>}
             >
                 <Text>Launch Minting Machine</Text>
             </Button>
@@ -131,7 +129,6 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
                 <ModalContent borderRadius={10} className={isMinting && !metadata?.image ? [styles.mintModalMinting, styles.mintModal].join(' ') : styles.mintModal} boxShadow='0 0 20px #000' border={'2px solid #222'}>
                     <ModalBody pb={20} pt={10}>
                         <VStack spacing={12}>
-
                             {!metadata?.image ?
                                 (<>
                                     <VStack >
@@ -140,19 +137,20 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
                                         </Heading>
 
                                         <Text color={isError ? '#999' : isCompleted ? '#fff' : loadingMachine ? '#22f' : isMinting ? "#f22" : "#555"} fontWeight={700} fontSize="md" textAlign="center" >
-                                            {isError ? 'ERROR' : isCompleted ? 'COMPLETED' : loadingMachine ? 'ACTIVATING MACHINE' : isMinting ? 'WOOOAH! MINTOOOOR!' : 'USE WITH CAUTION'}
+                                            {isError ? 'PAUSED' : isCompleted ? 'COMPLETED' : loadingMachine ? 'ACTIVATING MACHINE' : isMinting ? 'WOOOAH! MINTOOOOR!' : 'USE WITH CAUTION'}
                                         </Text>
                                     </VStack>
                                     <VStack>
-                                        <CustomImageFrame h='35vh' w='35vh' wrapperClassName={isMinting ? styles.mintModalMinting : ''}>
+                                        <CustomImageFrame h='35vh' w='35vh' wrapperClassName={isMinting ? styles.mintModalMinting : ''} isMinting={isMinting} >
                                             <Image src={isMinting ? "assets/loadmint.gif" : "assets/ailiens/blendblur.png"}
                                                 pointerEvents={'none'} className={styles.nftImage}
                                                 maxH={'calc(35vh)'} alt="" />
                                         </CustomImageFrame>
-                                        <Box h='30px' minW={'150px'}>
-                                        </Box>
-                                        <Box h='20px' minW={'100px'}>
-                                        </Box>
+                                        <Spacer />
+                                        <Skeleton h='30px' minW={150} startColor='#222' endColor='#222' isLoaded={false}>
+                                        </Skeleton>
+                                        <Skeleton h='20px' minW={100} startColor='#222' endColor='#222' isLoaded={false}>
+                                        </Skeleton>
                                     </VStack>
 
 
@@ -173,12 +171,12 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
                                         <Heading as="h1" size="xl" textAlign="center" className={styles.coolTitle}>
                                             Minting Machine
                                         </Heading>
-                                        <Text color={isError ? '#999' : isCompleted ? '#fff' : loadingMachine ? '#22f' : isMinting ? "#ff2" : "#555"} fontWeight={700} fontSize="md" textAlign="center" >
-                                            {isError ? 'ERROR' : isCompleted ? 'COMPLETED' : loadingMachine ? 'ACTIVATING MACHINE' : isMinting ? 'WOOOAH! MINTOOOOR!' : 'USE WITH CAUTION'}
+                                        <Text color={isError ? '#999' : isCompleted ? '#fff' : loadingMachine ? '#22f' : isMinting ? "#f22" : "#555"} fontWeight={700} fontSize="md" textAlign="center" >
+                                            {isError ? 'PAUSED' : isCompleted ? 'COMPLETED' : loadingMachine ? 'ACTIVATING MACHINE' : isMinting ? 'WOOOAH! MINTOOOOR!' : 'USE WITH CAUTION'}
                                         </Text>
                                     </VStack>
                                     <VStack>
-                                        <CustomImageFrame h='35vh' w='35vh' wrapperClassName={isMinting ? styles.mintModalMinting : ''} isLoaded={displayNFT}>
+                                        <CustomImageFrame h='35vh' w='35vh' wrapperClassName={isMinting ? styles.mintModalMinting : ''} isLoaded={displayNFT} isMinting={isMinting} >
                                             <Image src={loadingMachine ? 'assets/ailiens/blendblur.png' : metadata?.image}
                                                 onLoad={() => {
                                                     setDisplayNFT(true)
@@ -187,16 +185,15 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
                                                 className={styles.nftImage}
                                                 maxH={'calc(35vh)'} alt="" />
                                         </CustomImageFrame>
-                                        {!loadingMachine && (<>
-                                            <Skeleton h='30px' minW={150} startColor='#222' endColor='#111' isLoaded={displayNFT}>
-                                                <Heading color="white" as="h1" size="md" textAlign="center">
-                                                    {metadata.name}
-                                                </Heading>
-                                            </Skeleton>
-                                            <Skeleton h='20px' minW={100} startColor='#222' endColor='#111' isLoaded={displayNFT}>
-                                                <Text color={'white'}>{metadata.attributes[1].value}</Text>
-                                            </Skeleton>
-                                        </>)}
+                                        <Spacer />
+                                        <Skeleton h='30px' minW={150} startColor='#222' endColor='#111' isLoaded={displayNFT && !loadingMachine}>
+                                            <Heading color="white" as="h1" size="md" textAlign="center">
+                                                {metadata.name}
+                                            </Heading>
+                                        </Skeleton>
+                                        <Skeleton h='20px' minW={100} startColor='#222' endColor='#111' isLoaded={displayNFT && !loadingMachine}>
+                                            <Text color={'white'} textAlign="center">{metadata.attributes[1].value}</Text>
+                                        </Skeleton>
                                     </VStack>
                                     <MintButton onClick={(e) => {
                                         setIsCompleted(false)
@@ -212,7 +209,7 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
                                 </>)
                             }
                         </VStack >
-                        <ModalCloseButton color={'#333'} onClick={() => {
+                        <ModalCloseButton _hover={{ background: 'transparent' }} color={'#555'} onClick={() => {
                             setLoadingMachine(false)
                             setIsMinting(false)
                             setIsCompleted(false)

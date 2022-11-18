@@ -13,18 +13,14 @@ export const MintButton: FC<MintButtonProps> = ({ isMinting, disabled, loadingMa
 
     return (
         <Button
-            colorScheme='black'
             disabled={disabled}
-            boxShadow={loadingMachine ? '0 0 10px 3px #fff, 0 0 10px 7px #00f !important' : ''}
-            className={isMinting ? styles.mintButtonPressed : styles.mintButton}
-            color="bodyText"
+            variant={'outline'}
             onClick={onClick}
-            h={100}
-            w={100}
-            isLoading={isMinting}
+            size={'lg'}
+            isLoading={isMinting || loadingMachine}
         >
-            <Heading size="3xl" textAlign="center"  >
-                &#128434;
+            <Heading size="md" textAlign="center">
+                START
             </Heading>
         </Button>
     )

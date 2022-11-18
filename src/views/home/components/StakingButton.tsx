@@ -13,18 +13,14 @@ export const StakingButton: FC<StakingButtonProps> = ({ isStaking, disabled, loa
 
     return (
         <Button
-            colorScheme='black'
             disabled={disabled}
-            boxShadow={loadingMachine ? '0 0 10px 3px #fff, 0 0 10px 7px #f00 !important' : ''}
-            className={isStaking ? styles.stakingButtonPressed : styles.stakingButton}
-            color="bodyText"
+            variant={'outline'}
             onClick={onClick}
-            h={100}
-            w={100}
-            isLoading={isStaking}
+            size={'lg'}
+            isLoading={isStaking || loadingMachine}
         >
-            <Heading size="3xl" pb={2} textAlign="center"  >
-                &#128377;
+            <Heading size="md" textAlign="center"  >
+                STAKE
             </Heading>
         </Button>
     )

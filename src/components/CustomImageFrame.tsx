@@ -8,16 +8,19 @@ interface CustomImageFrameProps {
     isLoaded?: boolean | true,
     w?: string,
     h?: string,
+    isMinting?: boolean,
 }
 export const CustomImageFrame: FC<CustomImageFrameProps> = ({
     children,
     wrapperClassName,
     isLoaded = true,
-    h, w
+    h,
+    w,
+    isMinting = false,
 }) => {
     return (
         <Box className={wrapperClassName}>
-            <Box className={styles.imageFrame} >
+            <Box className={isMinting ? styles.imageFrameMinting : styles.imageFrame}  >
                 <Skeleton h={h} w={w} startColor='#222' endColor='#111' isLoaded={isLoaded}>
                     {children}
                 </Skeleton>

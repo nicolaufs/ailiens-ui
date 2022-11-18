@@ -2,6 +2,11 @@
   cursor: cell !important;
 }
 
+::selection {
+  color: #777;
+  background: transparent;
+}
+
 .wallet-adapter-button {
   background: transparent;
   border: 2px solid #222;

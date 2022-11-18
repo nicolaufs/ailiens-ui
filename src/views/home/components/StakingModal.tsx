@@ -58,7 +58,7 @@ const StakingModal: FC<StakingModalProps> = ({ }) => {
                 variant={'outline'}
                 size='lg'
                 maxW="380px"
-                rightIcon={<Text fontSize="2xl">&#128377;</Text>}
+                rightIcon={<Text fontSize="2xl">&#128434;</Text>}
             >
                 <Text>Launch Staking Machine</Text>
             </Button>

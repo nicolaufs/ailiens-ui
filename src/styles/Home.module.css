@@ -1,5 +1,5 @@
 .container {
-  background: linear-gradient(-45deg, #000000, #111, #000000, #151515);
+  background: linear-gradient(-45deg, #000000, #050505, #000000, #101010);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
 }
@@ -32,7 +32,16 @@
   border: 2px solid #222;
   border-radius: 12px;
   padding: 10px;
+  background-color: #050505;
   animation: liquidShadowWhite 2s linear infinite;
+}
+
+.imageFrameMinting {
+  border: 2px solid #222;
+  border-radius: 12px;
+  background-color: #050505;
+  padding: 10px;
+  box-shadow: inset 0 0 10px 2px #fff, inset 0 0 10px 5px #f00;
 }
 
 @keyframes liquidShadowWhite {
@@ -184,34 +193,34 @@
   text-transform: uppercase;
 }
 
-.mintButton {
-  animation: bluePulseLight 2s infinite;
+/* .mintButton {
+  animation: pulseLight 2s infinite;
   border-radius: 50px !important;
   background-color: #050505;
 }
 
 .mintButton:hover {
   animation: none;
-  box-shadow: 0 0 10px 2px #fff, 0 0 10px 5px #00f;
+  box-shadow: inset 0 0 10px 2px #fff, inset 0 0 10px 5px #22f;
 }
 
 .mintButtonPressed {
-  box-shadow: 0 0 10px 2px #fff, 0 0 10px 5px #f00;
+  box-shadow: inset 0 0 10px 4px #fff, inset 0 0 10px 7px #f00;
   border-radius: 50px !important;
   background-color: #050505;
-}
+} */
 
-@keyframes bluePulseLight {
+@keyframes pulseLight {
   0% {
-    box-shadow: 0 0 10px 0px #fff, 0 0 10px 0px #00f;
+    box-shadow: inset 0 0 10px 0px #fff, inset 0 0 10px 0px #22f;
   }
 
   50% {
-    box-shadow: 0 0 10px 2px #fff, 0 0 10px 3px #00f;
+    box-shadow: inset 0 0 10px 2px #fff, inset 0 0 10px 3px #22f;
   }
 
   100% {
-    box-shadow: 0 0 10px 0px #fff, 0 0 10px 0px #00f;
+    box-shadow: inset 0 0 10px 0px #fff, inset 0 0 10px 0px #22f;
   }
 }
 
@@ -223,25 +232,25 @@
 
 .stakingButton:hover {
   animation: none;
-  box-shadow: 0 0 10px 2px #fff, 0 0 10px 5px #f00;
+  box-shadow: inset 0 0 10px 2px #fff, inset 0 0 10px 5px #f00;
 }
 
 .stakingButtonPressed {
-  box-shadow: 0 0 10px 2px #fff, 0 0 10px 5px #f0f;
+  box-shadow: inset 0 0 10px 2px #fff, inset 0 0 10px 5px #f0f;
   border-radius: 50px !important;
   background-color: #050505;
 }
 
 @keyframes redPulseLight {
   0% {
-    box-shadow: 0 0 10px 0px #fff, 0 0 10px 0px #f00;
+    box-shadow: inset 0 0 10px 0px #fff, inset 0 0 10px 0px #f00;
   }
 
   50% {
-    box-shadow: 0 0 10px 2px #fff, 0 0 10px 3px #f00;
+    box-shadow: inset 0 0 10px 2px #fff, inset 0 0 10px 3px #f00;
   }
 
   100% {
-    box-shadow: 0 0 10px 0px #fff, 0 0 10px 0px #f00;
+    box-shadow: inset 0 0 10px 0px #fff, inset 0 0 10px 0px #f00;
   }
 }
