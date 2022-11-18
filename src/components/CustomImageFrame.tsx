@@ -1,9 +1,10 @@
-import { FC, ReactNode } from "react";
+import { CSSProperties, FC, ReactNode } from "react";
 import { Box, Skeleton } from "@chakra-ui/react";
 import styles from "../styles/Home.module.css"
 
 interface CustomImageFrameProps {
     children: ReactNode,
+    style?: CSSProperties | undefined,
     wrapperClassName?: string,
     isLoaded?: boolean | true,
     w?: string,
@@ -12,6 +13,7 @@ interface CustomImageFrameProps {
 }
 export const CustomImageFrame: FC<CustomImageFrameProps> = ({
     children,
+    style,
     wrapperClassName,
     isLoaded = true,
     h,
@@ -20,7 +22,7 @@ export const CustomImageFrame: FC<CustomImageFrameProps> = ({
 }) => {
     return (
         <Box className={wrapperClassName}>
-            <Box className={isMinting ? styles.imageFrameMinting : styles.imageFrame}  >
+            <Box className={isMinting ? styles.imageFrameMinting : styles.imageFrame} style={style}  >
                 <Skeleton h={h} w={w} startColor='#222' endColor='#111' isLoaded={isLoaded}>
                     {children}
                 </Skeleton>

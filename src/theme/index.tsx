@@ -35,9 +35,14 @@ const components = {
     Modal: {
         baseStyle: {
             dialog: {
-                bg: "#020202"
+                bg: "#050505"
             }
         },
+    },
+    Skeleton: {
+        baseStyle: {
+            borderRadius: '3px',
+        }
     },
     Button: {
         variants: {
@@ -50,7 +55,7 @@ const components = {
                     bg: '#101010',
                 },
                 bg: '#050505',
-                border: '2px solid #222',
+                border: '1px solid #222',
                 borderColor: '#222',
 
             }

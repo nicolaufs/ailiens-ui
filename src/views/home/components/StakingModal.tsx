@@ -31,9 +31,10 @@ import { CustomImageFrame } from "../../../components/CustomImageFrame"
 import { StakingButton } from "./StakingButton"
 
 interface StakingModalProps {
+    version: 'basic' | 'full'
 }
 
-const StakingModal: FC<StakingModalProps> = ({ }) => {
+const StakingModal: FC<StakingModalProps> = ({ version = 'full' }) => {
     const [loadingMachine, setLoadingMachine] = useState(false)
     const [isStaking, setIsStaking] = useState(false)
     const [isCompleted, setIsCompleted] = useState(false)
@@ -56,28 +57,30 @@ const StakingModal: FC<StakingModalProps> = ({ }) => {
         <>
             <Button onClick={onOpen}
                 variant={'outline'}
-                size='lg'
+                size={version == 'basic' ? 'md' : 'lg'}
                 maxW="380px"
-                rightIcon={<Text fontSize="2xl">&#128434;</Text>}
+                rightIcon={<Text fontSize={version == 'basic' ? 'lg' : "2xl"}>&#128434;</Text>}
             >
-                <Text>Launch Staking Machine</Text>
+                <Text> {version == 'basic' ? 'STAKE' : 'Launch Staking Machine'}</Text>
             </Button>
 
-            <Modal closeOnOverlayClick={false} isOpen={isOpen} colorScheme='blackAlpha' onClose={onClose} size={'xl'} isCentered>
+            <Modal closeOnOverlayClick={false} isOpen={isOpen} colorScheme='blackAlpha' onClose={onClose} size={'lg'} isCentered>
                 <ModalOverlay backdropFilter='blur(10px)' />
-                <ModalContent borderRadius={10} boxShadow='0 0 20px #000' border={'2px solid #222'} className={styles.stakingModal}>
+                <ModalContent borderRadius={10} boxShadow='0 0 20px #000' border={'1px solid #222'} className={styles.stakingModal}>
                     <ModalBody pb={20} pt={10}>
                         <VStack spacing={12}>
                             <VStack >
-                                <Heading as="h1" size="xl" textAlign="center" className={styles.coolTitle}>
+                                <Heading size="xl" textAlign="center" >
+                                    &#128434;
+                                </Heading>
+                                <Heading as="h1" size="lg" textAlign="center" className={styles.coolTitle}>
                                     Staking Machine
                                 </Heading>
-
                                 <Text color={isError ? '#999' : isCompleted ? '#fff' : loadingMachine ? '#22f' : isStaking ? "#f22" : "#555"} fontWeight={700} fontSize="md" textAlign="center" >
-                                    {isError ? 'ERROR' : isCompleted ? 'COMPLETED' : loadingMachine ? 'ACTIVATING MACHINE' : isStaking ? 'MINTING IN PROCESS' : 'USE WITH CAUTION'}
+                                    {isError ? 'PAUSED' : isCompleted ? 'COMPLETED' : loadingMachine ? 'ACTIVATING MACHINE' : isStaking ? 'PROCESSING' : 'START EARNING $PAX'}
                                 </Text>
                             </VStack>
-                            <Box h='35vh' w='35vh'>
+                            <Box h='35vh' w='35vh' background={'#050505'} border={'1px solid #222'} borderRadius={'12px'}>
                             </Box>
 
                             <StakingButton
