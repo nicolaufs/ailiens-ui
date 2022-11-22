@@ -31,7 +31,7 @@ import { CustomImageFrame } from "../../../components/CustomImageFrame"
 import { StakingButton } from "./StakingButton"
 
 interface StakingModalProps {
-    version: 'basic' | 'full'
+    version?: 'basic' | 'full' | undefined
 }
 
 const StakingModal: FC<StakingModalProps> = ({ version = 'full' }) => {

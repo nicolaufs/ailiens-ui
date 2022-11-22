@@ -9,6 +9,7 @@ import {
     SimpleGrid,
     Spacer,
     Divider,
+    Skeleton,
 } from "@chakra-ui/react"
 import styles from "../../../styles/Home.module.css"
 import { useMetaplex } from "../../../hooks/useMetaplex"
@@ -34,7 +35,7 @@ const Connected: FC = () => {
         metaplex
             .candyMachinesV2()
             .findByAddress({
-                address: new PublicKey("EhixWqzrr6EzoHUfsgUmiFah1LNMoYoJU2KktaKGPfdu"),
+                address: new PublicKey("CDhiRtZLCKYxb3eR2PZEmyGMjNEiEC56DzooP99zuMyB"),
             })
             .then((candyMachine) => {
                 console.log(candyMachine)
@@ -92,7 +93,9 @@ const Connected: FC = () => {
                 </CustomImageFrame>
             </SimpleGrid>
             <SimpleGrid columns={{ sm: 1, md: 2 }} spacing='20px' >
-                <MintModal candyMachine={candyMachine} />
+                {candyMachine &&
+                    <MintModal candyMachine={candyMachine!} />
+                }
                 <StakingModal />
             </SimpleGrid>
 

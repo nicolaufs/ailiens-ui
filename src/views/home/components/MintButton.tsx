@@ -20,7 +20,7 @@ export const MintButton: FC<MintButtonProps> = ({ isMinting, disabled, loadingMa
             isLoading={isMinting || loadingMachine}
         >
             <Heading size="md" textAlign="center">
-                START
+                START MINT
             </Heading>
         </Button>
     )

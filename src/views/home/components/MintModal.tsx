@@ -30,9 +30,10 @@ import { MintButton } from "./MintButton"
 import { notify } from "../../../utils/notifications"
 import { CustomImageFrame } from "../../../components/CustomImageFrame"
 import StakingModal from "./StakingModal"
+import { LAMPORTS_PER_SOL } from "@solana/web3.js"
 
 interface MintModalProps {
-    candyMachine?: CandyMachineV2,
+    candyMachine: CandyMachineV2,
 }
 
 const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
@@ -43,6 +44,7 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
     const [isError, setIsError] = useState(false)
     const [error, setError] = useState()
     const [displayNFT, setDisplayNFT] = useState(false)
+    const [minted, setMinted] = useState(candyMachine.itemsMinted.toNumber())
 
     const { metaplex } = useMetaplex()
     const { publicKey, connected, } = useWallet()
@@ -82,7 +84,7 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
                     setError(err?.message)
                     notify({ type: 'error', message: 'Error', description: err?.message });
                 }
-                console.log(error)
+                console.log(err?.message)
                 return;
             }
 
@@ -97,6 +99,7 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
                     .then((metadata) => {
                         setMetadata(metadata)
                         notify({ type: 'success', message: "Ailien Minted!", txid: mintedNft?.response.signature });
+                        setMinted((r) => r! + 1)
                     })
             } catch (err: any) {
                 setIsMinting(false)
@@ -105,10 +108,9 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
                     setError(err?.message)
                     notify({ type: 'error', message: 'Error', description: err?.message });
                 }
-                console.log(error)
+                console.log(err?.message)
                 return;
             }
-
             // set state as completed
             setIsMinting(false)
             setIsCompleted(true)
@@ -155,9 +157,16 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
                                                 maxH={'calc(35vh)'} alt="" />
                                         </CustomImageFrame>
                                         <Spacer />
-                                        <Skeleton h='20px' minW={150} startColor='#222' endColor='#222' isLoaded={false} />
+                                        {candyMachine && <>
+                                            <Text color={'white'} textAlign="center">Price: {candyMachine.price.basisPoints.toNumber() / LAMPORTS_PER_SOL} {candyMachine?.price.currency.symbol.toString()}</Text>
+                                            <Text color={'#bbb'} fontSize={'sm'} textAlign="justify">
+                                                Minted: {minted}/{candyMachine.itemsAvailable.toString()}
+                                            </Text>
+                                        </>}
+
+                                        {/* <Skeleton h='20px' minW={150} startColor='#222' endColor='#222' isLoaded={false} />
                                         <Skeleton h='20px' minW={100} startColor='#222' endColor='#222' isLoaded={false} />
-                                        <Skeleton h='100px' w={360} startColor='#222' endColor='#222' isLoaded={false} />
+                                        <Skeleton h='100px' w={360} startColor='#222' endColor='#222' isLoaded={false} /> */}
                                     </VStack>
                                     <MintButton
                                         onClick={(e) => {
@@ -170,6 +179,8 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
                                         loadingMachine={loadingMachine}
                                         disabled={!candyMachine}
                                     />
+                                    <Text color={'#bbb'} fontSize={'xs'} textAlign="justify">Press the START MINT button to start miniting an Ailien!</Text>
+
                                 </>) : (<>
 
 
