@@ -1,54 +1,25 @@
-import { FC, MouseEventHandler, useCallback, useEffect, useState } from "react"
+import { FC, useEffect } from "react"
 import {
-    Button,
     Heading,
-    HStack,
     Text,
     VStack,
     Image,
     SimpleGrid,
-    Spacer,
-    Divider,
-    Skeleton,
 } from "@chakra-ui/react"
 import styles from "../../../styles/Home.module.css"
-import { useMetaplex } from "../../../hooks/useMetaplex"
-import { CandyMachineV2, PublicKey } from "@metaplex-foundation/js"
-import { useConnection, useWallet } from "@solana/wallet-adapter-react"
-import { useRouter } from "next/router"
-import { LinkIcon } from "@chakra-ui/icons"
 import MintModal from "./MintModal"
-import { notify } from "../../../utils/notifications"
 import { CustomImageFrame } from "../../../components/CustomImageFrame"
 import StakingModal from "./StakingModal"
+import { useCandyMachine } from "../../../hooks/useCandyMachine"
+import { notify } from "../../../utils/notifications"
 
 const Connected: FC = () => {
-    const [candyMachine, setCandyMachine] = useState<CandyMachineV2>()
-    const { metaplex } = useMetaplex()
-
+    const { candyMachine, owned } = useCandyMachine()
 
     useEffect(() => {
         notify({ type: 'success', message: 'Wallet Connected' });
+    }, [])
 
-        if (!metaplex) return
-
-        metaplex
-            .candyMachinesV2()
-            .findByAddress({
-                address: new PublicKey("CDhiRtZLCKYxb3eR2PZEmyGMjNEiEC56DzooP99zuMyB"),
-            })
-            .then((candyMachine) => {
-                console.log(candyMachine)
-                setCandyMachine(candyMachine)
-            })
-            .catch((error: any) => {
-                notify({ type: 'error', message: 'Error', description: 'Error finding Candy Machine!' });
-                console.log(error)
-            })
-
-        console.log(candyMachine)
-
-    }, [metaplex])
 
     return (
         <VStack spacing={12}>
@@ -93,10 +64,8 @@ const Connected: FC = () => {
                 </CustomImageFrame>
             </SimpleGrid>
             <SimpleGrid columns={{ sm: 1, md: 2 }} spacing='20px' >
-                {candyMachine &&
-                    <MintModal candyMachine={candyMachine!} />
-                }
-                <StakingModal />
+                <MintModal candyMachine={candyMachine} owned={owned} />
+                <StakingModal candyMachine={candyMachine} owned={owned} />
             </SimpleGrid>
 
 
@@ -107,7 +76,7 @@ const Connected: FC = () => {
             >Notify</Button> */}
 
 
-        </VStack>
+        </VStack >
 
     )
 }

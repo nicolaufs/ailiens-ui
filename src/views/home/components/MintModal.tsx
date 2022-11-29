@@ -13,9 +13,7 @@ import {
     ModalCloseButton,
     Skeleton,
     Spacer,
-    ModalFooter,
     HStack,
-    SkeletonText,
 } from "@chakra-ui/react"
 import {
     FC,
@@ -25,29 +23,31 @@ import {
 } from "react"
 import { useMetaplex } from "../../../hooks/useMetaplex"
 import styles from "../../../styles/Home.module.css"
-import { CandyMachineV2, MintCandyMachineV2Output } from "@metaplex-foundation/js"
+import { CandyMachineV2, Metadata, MintCandyMachineV2Output } from "@metaplex-foundation/js"
 import { MintButton } from "./MintButton"
 import { notify } from "../../../utils/notifications"
 import { CustomImageFrame } from "../../../components/CustomImageFrame"
 import StakingModal from "./StakingModal"
-import { LAMPORTS_PER_SOL } from "@solana/web3.js"
+import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js"
+import { useCandyMachine } from "../../../hooks/useCandyMachine"
 
 interface MintModalProps {
-    candyMachine: CandyMachineV2,
+    candyMachine?: CandyMachineV2,
+    owned?: Metadata[],
 }
 
-const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
+const MintModal: FC<MintModalProps> = ({ candyMachine, owned }) => {
+    const { metaplex } = useMetaplex()
+    const { publicKey } = useWallet()
+
     const [metadata, setMetadata] = useState<any>()
     const [loadingMachine, setLoadingMachine] = useState(false)
     const [isMinting, setIsMinting] = useState(false)
     const [isCompleted, setIsCompleted] = useState(false)
     const [isError, setIsError] = useState(false)
     const [error, setError] = useState()
+    const [mintAddress, setMintAddress] = useState<string>()
     const [displayNFT, setDisplayNFT] = useState(false)
-    const [minted, setMinted] = useState(candyMachine.itemsMinted.toNumber())
-
-    const { metaplex } = useMetaplex()
-    const { publicKey, connected, } = useWallet()
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -63,8 +63,8 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
             setDisplayNFT(false)
 
             event.preventDefault();
-            if (!connected || !candyMachine) {
-                if (!connected) {
+            if (!publicKey || !candyMachine) {
+                if (!publicKey) {
                     notify({ type: 'error', message: 'Error', description: 'Wallet not connected!' });
                 } else {
                     notify({ type: 'error', message: 'Error', description: 'Candy Machine not available.' });
@@ -75,8 +75,15 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
             let mintedNft: MintCandyMachineV2Output | undefined;
             // Mint
             try {
-                mintedNft = await metaplex?.candyMachinesV2().mint({ candyMachine })
-                console.log(mintedNft)
+                console.log('Minting!')
+                mintedNft = await metaplex!.candyMachinesV2().mint({ candyMachine })
+                console.log('Mint done!')
+                console.log('----------')
+                console.log(mintedNft.tokenAddress.toBase58())
+                console.log(mintedNft.nft.address.toBase58())
+                console.log('----------')
+                setMintAddress(mintedNft.nft.mint.address.toBase58())
+                //console.log(mintedNft)
             } catch (err: any) {
                 setIsMinting(false)
                 if (err?.message != 'User rejected the request.') {
@@ -94,12 +101,13 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
                     .findByMint({ mintAddress: mint! })
                     .then((nft) => {
                          */
+                console.log('Fetching mint!')
                 fetch(mintedNft!.nft.uri)
                     .then((res) => res.json())
                     .then((metadata) => {
+                        console.log('Mint fetched:', metadata)
                         setMetadata(metadata)
                         notify({ type: 'success', message: "Ailien Minted!", txid: mintedNft?.response.signature });
-                        setMinted((r) => r! + 1)
                     })
             } catch (err: any) {
                 setIsMinting(false)
@@ -111,6 +119,7 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
                 console.log(err?.message)
                 return;
             }
+            console.log('Updating state')
             // set state as completed
             setIsMinting(false)
             setIsCompleted(true)
@@ -124,6 +133,7 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
                 variant={'outline'}
                 size='lg'
                 maxW="380px"
+                disabled={!owned && !candyMachine}
                 rightIcon={<Text fontSize={'2xl'}>&#128377;</Text>}
             >
                 <Text>Launch Minting Machine</Text>
@@ -160,7 +170,10 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
                                         {candyMachine && <>
                                             <Text color={'white'} textAlign="center">Price: {candyMachine.price.basisPoints.toNumber() / LAMPORTS_PER_SOL} {candyMachine?.price.currency.symbol.toString()}</Text>
                                             <Text color={'#bbb'} fontSize={'sm'} textAlign="justify">
-                                                Minted: {minted}/{candyMachine.itemsAvailable.toString()}
+                                                Minted: {candyMachine.itemsMinted.toString()}/{candyMachine.itemsAvailable.toString()}
+                                            </Text>
+                                            <Text color={'#bbb'} fontSize={'sm'} textAlign="justify">
+                                                Owned: {owned?.length}
                                             </Text>
                                         </>}
 
@@ -218,8 +231,9 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
                                         }} rightIcon={<Text fontSize="lg">&#128377;</Text>}
                                         >MINT</Button>
                                         <Button variant={'outline'}>VIEW</Button>
-                                        <StakingModal version={'basic'} />
-
+                                        {mintAddress &&
+                                            <StakingModal version={'basic'} mintAddress={mintAddress} candyMachine={candyMachine} owned={owned} />
+                                        }
                                     </HStack>
                                 </>)
                             }
@@ -233,6 +247,7 @@ const MintModal: FC<MintModalProps> = ({ candyMachine }) => {
 
                             setMetadata(undefined)
                             setDisplayNFT(false)
+                            setMintAddress(undefined)
                         }
                         } />
 

@@ -7,7 +7,7 @@ import { CheckCircleIcon, CheckIcon, ChevronDownIcon, CloseIcon, ExternalLinkIco
 
 const NotificationList = () => {
   const { notifications, set: setNotificationStore } = useNotificationStore(
-    (s) => s
+    (s: any) => s
   )
 
   const reversedNotifications = [...notifications].reverse()
@@ -60,7 +60,7 @@ const Notification: FC<NewMintProps> = ({ type, message, description, txid, onHi
     onToggle()
     const id = setTimeout(() => {
       onHide()
-    }, 8000);
+    }, 3000);
 
     return () => {
       clearInterval(id);

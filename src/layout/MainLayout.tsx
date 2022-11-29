@@ -16,13 +16,13 @@ const MainLayout: FC<{ children: ReactNode }> = ({ children }) => {
             margin={0}
             className={styles.container}
         >
-            <Stack w="full" h="calc(100vh)" justify="center" >
+            <Stack w="full" minH="calc(100vh)">
 
                 <NavBar />
 
                 <Spacer />
 
-                <Center>{children}</Center>
+                <Center >{children}</Center>
 
                 <Spacer />
 

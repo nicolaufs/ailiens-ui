@@ -10,6 +10,7 @@ interface CustomImageFrameProps {
     w?: string,
     h?: string,
     isMinting?: boolean,
+    isStaking?: boolean,
 }
 export const CustomImageFrame: FC<CustomImageFrameProps> = ({
     children,
@@ -19,10 +20,11 @@ export const CustomImageFrame: FC<CustomImageFrameProps> = ({
     h,
     w,
     isMinting = false,
+    isStaking = false,
 }) => {
     return (
         <Box className={wrapperClassName}>
-            <Box className={isMinting ? styles.imageFrameMinting : styles.imageFrame} style={style}  >
+            <Box className={isStaking ? styles.imageFrameStaking : isMinting ? styles.imageFrameMinting : styles.imageFrame} style={style}  >
                 <Skeleton h={h} w={w} startColor='#222' endColor='#111' isLoaded={isLoaded}>
                     {children}
                 </Skeleton>

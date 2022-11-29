@@ -29,7 +29,7 @@
 }
 
 .imageFrame {
-  border: 2px solid #222;
+  border: 1px solid #222;
   border-radius: 12px;
   padding: 10px;
   background-color: #050505;
@@ -37,11 +37,19 @@
 }
 
 .imageFrameMinting {
-  border: 2px solid #222;
+  border: 1px solid #222;
   border-radius: 12px;
   background-color: #050505;
   padding: 10px;
   box-shadow: inset 0 0 10px 2px #fff, inset 0 0 10px 5px #f00;
+}
+
+.imageFrameStaking {
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 10px;
+  background-color: #050505;
+  animation: liquidShadowWhite 2s linear infinite;
 }
 
 @keyframes liquidShadowWhite {
@@ -69,25 +77,47 @@
   }
 }
 
+.nftCard {
+  transition: all 0.1s linear;
+}
+
+.nftCard:hover .imageFrame {
+  background-color: #555;
+}
+
+.nftCard:hover .nftCardHeading,
+.nftCard:hover .nftCardText {
+  color: white;
+}
+
 .nftImage {
+  transition: all 0.1s linear;
   border-radius: 8px;
+}
+
+.nftCardHeading,
+.nftCardText {
+  transition: all 0.1s linear;
+  color: #aaa;
 }
 
 .mintModal,
 .stakingModal {
   background-image: repeating-conic-gradient(
-    #0a0a0a 10%,
+    #050505 10%,
     #000 20%,
-    #0a0a0a 30%
+    #050505 30%
   ) !important;
 }
 
 .mintModalMinting {
-  /* Start the shake animation and make the animation last for 0.5 seconds */
   animation: shake 0.5s;
-
-  /* When the animation is finished, start again */
   animation-iteration-count: infinite;
+}
+
+.stakeModalStaking {
+  border-radius: 16px;
+  animation: pulseLight 2s infinite;
 }
 
 @keyframes shake {
@@ -180,14 +210,6 @@
   background-position: 0 0, 0 0, 14px 25px, 14px 25px, 0 0, 14px 25px;
 }
 
-.stakingModalStaking {
-  /* Start the shake animation and make the animation last for 0.5 seconds */
-  animation: shake 0.5s;
-
-  /* When the animation is finished, start again */
-  animation-iteration-count: infinite;
-}
-
 .coolTitle {
   color: white;
   text-transform: uppercase;
@@ -212,15 +234,23 @@
 
 @keyframes pulseLight {
   0% {
-    box-shadow: inset 0 0 10px 0px #fff, inset 0 0 10px 0px #22f;
+    box-shadow: 0 0 8px 1px #fff, 0 0 10px 3px #29f;
+  }
+
+  25% {
+    box-shadow: 0 0 8px 2px #fff, 0 0 10px 4px #29f;
   }
 
   50% {
-    box-shadow: inset 0 0 10px 2px #fff, inset 0 0 10px 3px #22f;
+    box-shadow: 0 0 8px 3px #fff, 0 0 10px 5px #29f;
+  }
+
+  75% {
+    box-shadow: 0 0 8px 2px #fff, 0 0 10px 4px #29f;
   }
 
   100% {
-    box-shadow: inset 0 0 10px 0px #fff, inset 0 0 10px 0px #22f;
+    box-shadow: 0 0 8px 1px #fff, 0 0 10px 3px #29f;
   }
 }
 
