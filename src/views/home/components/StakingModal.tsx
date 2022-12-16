@@ -79,7 +79,7 @@ const StakingModal: FC<StakingModalProps> = ({ version = 'full', mintAddress, ca
             m.push(json)
         }
         // set state
-        setPageItems(m)
+        setPageItems(m/* .sort((a, b) => Number(a.attributes![1].value!.split('#')[1]) - Number(b.attributes![1].value!.split('#')[1])) */)
     }
     // previous page
     const prev = async () => {
@@ -143,23 +143,23 @@ const StakingModal: FC<StakingModalProps> = ({ version = 'full', mintAddress, ca
             <Modal closeOnOverlayClick={false} isOpen={isOpen} colorScheme='blackAlpha' onClose={onClose} size={address ? 'lg' : '3xl'} isCentered>
                 <ModalOverlay backdropFilter='blur(10px)' />
                 <ModalContent borderRadius={10} maxH={'100vh'} overflow='scroll' boxShadow='0 0 20px #000' border={'1px solid #222'} className={styles.stakingModal}>
-                    <ModalBody pb={20} pt={10} >
+                    <ModalBody pb={10} pt={10} >
                         <VStack spacing={12}>
                             <VStack >
-                                <Heading size="xl" textAlign="center" >
+                                <Heading size="lg" textAlign="center" >
                                     &#128434;
                                 </Heading>
-                                <Heading as="h1" size="lg" textAlign="center" className={styles.coolTitle}>
+                                <Heading as="h1" size="md" textAlign="center" className={styles.coolTitle}>
                                     Staking Machine
                                 </Heading>
-                                <Text color={isError ? '#999' : loadingMachine ? '#aff' : isStaking ? "#29f" : "#555"} fontWeight={700} fontSize="md" textAlign="center" >
+                                <Text color={isError ? '#999' : loadingMachine ? '#aff' : isStaking ? "#29f" : "#555"} fontWeight={700} fontSize="sm" textAlign="center" >
                                     {pageItems?.length == 0 ? 'NO NFTS FOUND' : !address && pageItems ? 'SELECT NFT' : isError ? 'PAUSED' : loadingMachine ? 'ACTIVATING MACHINE' : isStaking ? 'AILIEN STAKED' : 'START EARNING $PAX'}
                                 </Text>
                             </VStack>
                             {!address && owned && pageItems ?
                                 <>
                                     <SimpleGrid columns={owned.length == 1 ? 1 : owned.length == 2 ? 2 : { sm: 2, md: 3 }}
-                                        maxW={700} w={owned.length == 1 ? '30vh' : { sm: "calc(80vw)", lg: "calc(60vw)" }} spacing={{ sm: '25px', md: '20px' }}>
+                                        maxW={700} w={owned.length == 1 ? '30vh' : { sm: "calc(80vw)", lg: "calc(50vw)" }} spacing={{ sm: '25px', md: '20px' }}>
                                         {pageItems.length != 0 ? pageItems.map((m, i) =>
                                             <NftCard key={i} metadata={m} onClick={() => {
                                                 const addr = owned[i].mintAddress.toBase58()

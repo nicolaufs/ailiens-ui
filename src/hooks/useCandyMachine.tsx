@@ -17,7 +17,6 @@ export const useCandyMachine = () => {
         metaplex.nfts().findAllByOwner({ owner: publicKey! })
             .then(async (all) => {
                 const collectionNfts = all.filter((n) => n.collection!.address !== candyMachine!.collectionMintAddress)
-                console.log(collectionNfts.length)
                 setOwned(collectionNfts as Metadata[])
 
             })
