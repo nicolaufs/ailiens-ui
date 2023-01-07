@@ -26,7 +26,7 @@ import styles from "../../../styles/Home.module.css"
 import { CandyMachineV2, JsonMetadata, Metadata } from "@metaplex-foundation/js"
 import { CustomImageFrame } from "../../../components/CustomImageFrame"
 import MintModal from "./MintModal"
-import { NftCard } from "./NftCard"
+import { NftCard } from "../../../components/NftCard"
 
 interface StakingModalProps {
     version?: 'basic' | 'full' | undefined,

@@ -30,6 +30,7 @@ import { CustomImageFrame } from "../../../components/CustomImageFrame"
 import StakingModal from "./StakingModal"
 import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js"
 import { useCandyMachine } from "../../../hooks/useCandyMachine"
+import { useRouter } from "next/router"
 
 interface MintModalProps {
     candyMachine?: CandyMachineV2,
@@ -39,6 +40,7 @@ interface MintModalProps {
 const MintModal: FC<MintModalProps> = ({ candyMachine, owned }) => {
     const { metaplex } = useMetaplex()
     const { publicKey } = useWallet()
+    const router = useRouter()
 
     const [metadata, setMetadata] = useState<any>()
     const [loadingMachine, setLoadingMachine] = useState(false)
@@ -134,7 +136,7 @@ const MintModal: FC<MintModalProps> = ({ candyMachine, owned }) => {
                 size='lg'
                 maxW="380px"
                 disabled={!owned && !candyMachine}
-                rightIcon={<Text fontSize={'2xl'}>&#128377;</Text>}
+                rightIcon={<Text fontSize={'2xl'}>&#x1fa90;</Text>}
             >
                 <Text>Launch Minting Machine</Text>
             </Button>
@@ -143,10 +145,10 @@ const MintModal: FC<MintModalProps> = ({ candyMachine, owned }) => {
                 <ModalOverlay backdropFilter='blur(10px)' />
                 <ModalContent borderRadius={10} className={isMinting && !metadata?.image ? [styles.mintModalMinting, styles.mintModal].join(' ') : styles.mintModal} boxShadow='0 0 20px #000' border={'1px solid #222'}>
                     <ModalBody pb={12} pt={5}>
-                        <VStack spacing={8}>
+                        <VStack spacing={4}>
                             <VStack >
                                 <Heading size="xl" textAlign="center" >
-                                    &#128377;
+                                    &#x1fa90;
                                 </Heading>
                                 <Heading as="h1" size="lg" textAlign="center" className={styles.coolTitle}>
                                     Minting Machine
@@ -192,12 +194,10 @@ const MintModal: FC<MintModalProps> = ({ candyMachine, owned }) => {
                                         loadingMachine={loadingMachine}
                                         disabled={!candyMachine}
                                     />
-                                    <Text color={'#bbb'} fontSize={'xs'} textAlign="justify">Press the START MINT button to start miniting an Ailien!</Text>
+                                    <Text color={'#bbb'} fontSize={'xs'} textAlign="justify">{isMinting || loadingMachine ? '' : 'Press the START MINT button to start miniting an Ailien!'}</Text>
 
                                 </>) : (<>
-
-
-                                    <VStack>
+                                    <VStack spacing={2}>
                                         <CustomImageFrame h='35vh' w='35vh' wrapperClassName={isMinting ? styles.mintModalMinting : ''}
                                             isLoaded={displayNFT} isMinting={isMinting} >
                                             <Image src={loadingMachine ? 'assets/ailiens/blendblur.png' : metadata?.image}
@@ -208,33 +208,38 @@ const MintModal: FC<MintModalProps> = ({ candyMachine, owned }) => {
                                                 className={styles.nftImage}
                                                 maxH={'calc(35vh)'} alt="" />
                                         </CustomImageFrame>
-                                        <Spacer />
-                                        <Skeleton h='20px' minW={150} startColor='#222' endColor='#111' isLoaded={displayNFT && !loadingMachine}>
+                                        <Skeleton minW={150} startColor='#222' endColor='#111' isLoaded={displayNFT && !loadingMachine}>
                                             <Heading color="white" as="h1" size="md" textAlign="center">
                                                 {metadata.name}
                                             </Heading>
                                         </Skeleton>
-                                        <Skeleton h='20px' minW={100} startColor='#222' endColor='#111' isLoaded={displayNFT && !loadingMachine}>
+                                        <Skeleton minW={100} startColor='#222' endColor='#111' isLoaded={displayNFT && !loadingMachine}>
                                             <Text color={'white'} textAlign="center">{metadata.attributes[1].value}</Text>
                                         </Skeleton>
-                                        <Skeleton h='100px' overflow='scroll' w={360} startColor='#222' endColor='#222' isLoaded={displayNFT && !loadingMachine}>
+                                        <Skeleton h='100px' overflow='scroll' w={360} startColor='#222' endColor='#222' px={4} py={2} style={{ border: '1px solid #222', borderRadius: 8, background: '#0a0a0a' }} isLoaded={displayNFT && !loadingMachine}>
                                             <Text color={'#bbb'} fontSize={'sm'} textAlign="justify">{metadata.description}</Text>
                                         </Skeleton>
 
                                     </VStack>
-                                    <HStack>
+                                    <Spacer />
+                                    <VStack spacing={4}>
                                         <Button variant={'outline'} onClick={(e) => {
                                             setIsCompleted(false)
                                             setIsError(false)
                                             setMetadata(undefined)
                                             setDisplayNFT(false)
-                                        }} rightIcon={<Text fontSize="lg">&#128377;</Text>}
-                                        >MINT</Button>
-                                        <Button variant={'outline'}>VIEW</Button>
-                                        {mintAddress &&
+                                        }} rightIcon={<Text fontSize="lg">&#x1fa90;</Text>}
+                                        >MINT AGAIN</Button>
+                                        <Button onClick={() => { router.push(`/display`) }}
+                                            variant={'outline'}
+                                            rightIcon={<Text fontSize={"lg"}>&#128125;</Text>}
+                                        >
+                                            GO TO COLLECTION
+                                        </Button>
+                                        {/* {mintAddress &&
                                             <StakingModal version={'basic'} mintAddress={mintAddress} candyMachine={candyMachine} owned={owned} />
-                                        }
-                                    </HStack>
+                                        } */}
+                                    </VStack>
                                 </>)
                             }
 

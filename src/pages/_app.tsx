@@ -23,7 +23,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ContextProvider>
         <MainLayout>
           <Notifications />
-
           <Component {...pageProps} />
         </MainLayout>
       </ContextProvider>

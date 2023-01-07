@@ -4,9 +4,7 @@ import { AutoConnectProvider } from './AutoConnectProvider';
 import { NetworkConfigurationProvider } from './NetworkConfigurationProvider';
 import { MetaplexProvider } from './MetaplexProvider';
 import WalletContextProvider from './WalletContextProvider';
-
-
-
+import { CandyMachineProvider } from './CandyMachineProvider';
 
 export const ContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
     return (
@@ -15,7 +13,9 @@ export const ContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
                 <AutoConnectProvider>
                     <WalletContextProvider>
                         <MetaplexProvider>
-                            {children}
+                            <CandyMachineProvider>
+                                {children}
+                            </CandyMachineProvider>
                         </MetaplexProvider>
                     </WalletContextProvider>
                 </AutoConnectProvider>

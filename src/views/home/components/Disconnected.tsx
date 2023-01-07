@@ -15,7 +15,6 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 const Disconnected: FC = () => {
-  const [displayLogo, setDisplayLogo] = useState(false)
   const modalState = useWalletModal()
   const { wallet, connect } = useWallet()
 

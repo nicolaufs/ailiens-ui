@@ -1,8 +1,8 @@
 import { background, Button, Heading, Image, Skeleton, Spacer, Text, VStack, withDefaultSize } from "@chakra-ui/react";
 import { JsonMetadata } from "@metaplex-foundation/js";
 import { FC, useState } from "react";
-import { CustomImageFrame } from "../../../components/CustomImageFrame";
-import styles from "../../../styles/Home.module.css"
+import { CustomImageFrame } from "./CustomImageFrame";
+import styles from "../styles/Home.module.css"
 
 interface NftCardProps {
     metadata: JsonMetadata,
@@ -15,7 +15,7 @@ export const NftCard: FC<NftCardProps> = ({ metadata, withDescription = false, o
     return (
         <VStack spacing={0} className={styles.nftCard} onClick={onClick}>
             <CustomImageFrame isLoaded={display}>
-                <Image src={metadata.image} pointerEvents={'none'} className={styles.nftImage} alt="" onLoad={() => {
+                <Image src={metadata.image} w={'100%'} pointerEvents={'none'} className={styles.nftImage} alt="" onLoad={() => {
                     setDisplay(true)
                 }} />
             </CustomImageFrame>
